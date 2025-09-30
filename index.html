@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VCE Scholarship Exam</title>
+</head>
+<style>
+*{
+  padding: 0;
+  margin: 0;
+  font-family: Verdana;
+}
+.start {
+  /* display: none; */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+  width: 400px;
+  padding: 30px;
+  
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.start h1 {
+  margin-bottom: 15px;
+  font-size: 24px;
+  color: #333;
+}
+
+.start p {
+  margin-bottom: 20px;
+  color: #666;
+  font-size: 16px;
+}
+
+.start input {
+  width: 90%;
+  padding: 12px;
+  font-size: 16px;
+  
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: border 0.3s;
+  margin-bottom: 20px;
+}
+
+.start input:focus {
+  border-color: #007bff;
+}
+
+.start button {
+  width: 95%;
+  padding: 12px;
+  font-size: 16px;
+  
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.start button:hover {
+  background: #0056b3;
+  transform: translateY(-2px);
+}
+
+.start button:active {
+  background: #00408f;
+  transform: translateY(0);
+}
+
+.exam {
+  display: grid;
+  grid-template-rows: 70px 1fr;
+  grid-template-columns: 220px 1fr 250px; /* Left | Center | Right */
+  height: 100vh;
+  width: 100vw;
+  background: #f7f9fc;
+  display: none;
+  font-family: Verdana, Arial, sans-serif;
+}
+
+/* Header (Timer) */
+header {
+  grid-column: 1 / 4;
+  background: #0056b3;
+  color: white;
+  font-size: 1.8em;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 1px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+}
+
+/* Sidebar (Question Numbers) */
+.sidebar {
+  background: #fff;
+  border-right: 1px solid #ddd;
+  padding: 15px;
+  overflow-y: auto;
+}
+
+.sidebar h3 {
+  margin-bottom: 10px;
+  font-size: 1.2em;
+  color: #333;
+}
+
+.number {
+  width: 40px;
+  height: 40px;
+  margin: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #e4e7eb;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.number:hover {
+  background: #007bff;
+  color: #fff;
+}
+
+/* Question Area */
+.questions {
+  padding: 30px;
+}
+
+.question-card {
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.question-card h2 {
+  margin-bottom: 20px;
+  font-size: 1.4em;
+  color: #222;
+}
+
+.option {
+  display: block;
+  margin: 10px 0;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.option:hover {
+  background: #f0f4ff;
+  border-color: #007bff;
+}
+
+/* Right Panel */
+.rightpanel {
+  background: #fff;
+  border-left: 1px solid #ddd;
+  padding: 20px;
+}
+
+.rightpanel h3 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 14px;
+  font-size: 16px;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.submit-btn:hover {
+  background: #0056b3;
+}
+
+
+.nav-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 30px;
+}
+
+.nav-btn {
+  padding: 12px 28px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.prev-btn {
+  background: #6c757d;
+  color: white;
+}
+
+.prev-btn:hover {
+  background: #5a6268;
+  transform: translateY(-2px);
+}
+
+.next-btn {
+  background: #28a745;
+  color: white;
+}
+
+.next-btn:hover {
+  background: #218838;
+  transform: translateY(-2px);
+}
+
+.success-page {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f7f9fc;
+  font-family: Verdana, Arial, sans-serif;
+  display: none; 
+}
+
+.success-card {
+  background: #fff;
+  padding: 40px 50px;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  text-align: center;
+  max-width: 500px;
+}
+
+.success-card h1 {
+  color: #28a745;
+  margin-bottom: 15px;
+  font-size: 2em;
+}
+
+.success-card p {
+  color: #444;
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.success-card small {
+  display: block;
+  margin-top: 10px;
+  color: #666;
+  font-style: italic;
+}
+
+
+</style>
+<body>
+  <div id="start" class="start">
+  <h1>VCE Scholarship Examination</h1>
+  <p>Enter your Roll Number and Details</p>
+  <input name="rollnum" type="text" placeholder="Roll Number"/>
+  <input name="fullname" type="text" placeholder="Full Name"/>
+  <input name="fathername" type="text" placeholder="Father Name"/>
+  <input name="phone" type="text" placeholder="Phone Number"/>
+  <button id="start-exam">Start Exam</button>
+</div>
+<div id="exam" class="exam">
+  <header>
+    <p id="timer">⏳ 30:00</p>
+  </header>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h3>Questions</h3>
+    <div class="number">1</div>
+    <div class="number">2</div>
+    <div class="number">3</div>
+    <div class="number">4</div>
+    <div class="number">5</div>
+  </div>
+
+  <!-- Question Area -->
+  <div class="questions">
+    <div class="question-card">
+      <h2>What is the capital of France?</h2>
+      <label class="option"><input type="radio" name="q1"> Paris</label>
+      <label class="option"><input type="radio" name="q1"> London</label>
+      <label class="option"><input type="radio" name="q1"> Berlin</label>
+      <label class="option"><input type="radio" name="q1"> Rome</label>
+    </div>
+    <div class="nav-buttons">
+    <button class="nav-btn prev-btn">⬅ Previous</button>
+    <button class="nav-btn next-btn">Next ➡</button>
+  </div>
+  </div>
+
+  <!-- Right Panel -->
+  <div class="rightpanel">
+    <h3>Candidate Info</h3>
+    <p><b>Name:</b> Mukund Vishwakarma</p>
+    <p><b>Reg No:</b> 12345</p>
+    <p><b>Status:</b> Active</p>
+    <button class="submit-btn">Submit Exam</button>
+  </div>
+</div>
+<div id="success" class="success-page">
+  <div class="success-card">
+    <h1>✅ Submitted Successfully</h1>
+    <p>We appreciate your participation.</p>
+    <p>Believe it or not, we're very glad you showed up!</p>
+    <small>— Team VCE</small>
+  </div>
+</div>
+
+</div>
+<script>
+let allQuestions = [];
+let currentIndex = 0;
+let userAnswers = [];
+let userRegnum = "";
+let studentname="";
+let examSubmitted = false;
+function submitExam() {
+  if (examSubmitted) return; 
+  examSubmitted = true;
+
+  const score = calculateScore();
+
+  
+  document.querySelectorAll(".submit-btn").forEach(btn => {
+    btn.disabled = true;
+    btn.textContent = "Submitting...";
+    btn.style.background = "grey";
+    btn.style.transform = "none";
+  });
+  console.log("exam submitting ....")
+  fetch("https://script.google.com/macros/s/AKfycbwL9rdajGflnyth15lMNa3S1WkTmISe2Ax5U0ZpF4uP-1AQ064KolM4z3RfOQRI4jNY/exec", {
+    method: "POST",
+    body: JSON.stringify({ rollnum: userRegnum, fullname:studentname, score })
+  })
+  .then(res => res.json())
+  .then(data => console.log("Submission:", data))
+  .catch(err => console.error("Error:", err));
+
+  document.getElementById("exam").style.display = "none";
+  document.getElementById("success").style.display = "flex";
+  clearForm();
+
+  setTimeout(() => location.reload(), 5000);
+}
+
+
+function toTitleCase(str) {
+  return str.replace(/\w\S*/g, function(txt) {
+    return txt.charAt(0).toUpperCase() + txt.substr(1);
+  });
+}
+
+document.getElementById("start-exam").addEventListener("click", async () => {
+  const startBtn = document.getElementById("start-exam");
+
+
+  const originalText = startBtn.textContent;
+  const originalBg = startBtn.style.background;
+  const originalTransform = startBtn.style.transform;
+
+  startBtn.disabled = true;
+  startBtn.textContent = "Verifying...";
+  startBtn.style.background = "grey";
+  startBtn.style.transform = "none";
+
+  const resetButton = () => {
+    startBtn.disabled = false;
+    startBtn.textContent = originalText;
+    startBtn.style.background = originalBg;
+    startBtn.style.transform = originalTransform;
+  };
+  const container = document.getElementById("start");
+  const regnum = container.querySelector("input[name='rollnum']").value.trim();
+  userRegnum = container.querySelector("input[name='rollnum']").value.trim();
+  const fullname = container.querySelector("input[name='fullname']").value.trim().toLowerCase();
+  studentname = fullname; 
+  const fathername = container.querySelector("input[name='fathername']").value.trim().toLowerCase();
+  const phone = container.querySelector("input[name='phone']").value.trim().toLowerCase();
+
+  const rightPanel = document.querySelector(".rightpanel");
+rightPanel.innerHTML = `
+  <h3>Candidate Info</h3>
+  <p><b>Reg No:</b> ${userRegnum}</p>
+  <p><b>Name:</b> ${toTitleCase(fullname)}</p>
+  <p><b>Father's Name:</b> ${toTitleCase(fathername)}</p>
+  <p><b>Status:</b> Active</p>
+  <button class="submit-btn">Submit Exam</button>
+`;
+rightPanel.querySelector(".submit-btn").addEventListener("click", submitExam);
+
+  if (!regnum || !fullname || !fathername || !phone) {
+  let counter = 5;
+  startBtn.textContent = `⚠ Fill all fields (${counter})`;
+  startBtn.style.background = "red"; 
+  const interval = setInterval(() => {
+    counter--;
+    if (counter > 0) {
+      startBtn.textContent = `⚠ Fill all fields (${counter})`;
+    } else {
+      clearInterval(interval);
+      resetButton();
+    }
+  }, 1000);
+  return;
+}
+
+try {
+  const response = await fetch("https://script.google.com/macros/s/AKfycbzz201xBRtmHAi-kk8IMdkDrHYdYF6XoEdeTzN-NXQEvmJTS_MtyWlTsXqp4HO-afl1/exec", {
+    method: "POST",
+    body: JSON.stringify({
+      regnumber: regnum,
+      fullname: fullname,
+      fathername: fathername,
+      phone: phone
+    })
+  });
+   console.log("reached")
+  const result = await response.json();
+  console.log(result)
+  if (result.status === "valid") {
+    if (document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen();
+    }
+    container.style.display = "none";
+    document.getElementById("exam").style.display = "grid";
+    startTimer(20);
+    await loadAllQuestions();
+    renderQuestion(0);
+  } else {
+    let counter = 5;
+    console.log(result.message)
+    startBtn.textContent = `⚠ ${result.message || "Invalid info"} (${counter})`;
+    startBtn.style.background = "red";
+    const interval = setInterval(() => {
+      counter--;
+      if (counter > 0) {
+        startBtn.textContent = `⚠ ${result.message || "Invalid info"} (${counter})`;
+      } else {
+        clearInterval(interval);
+        resetButton();
+      }
+    }, 1000);
+  }
+
+} catch (err) {
+  console.error(err);
+  let counter = 5;
+  startBtn.textContent = `⚠ Something went wrong (${counter})`;
+  startBtn.style.background = "red";
+  const interval = setInterval(() => {
+    counter--;
+    if (counter > 0) {
+      startBtn.textContent = `⚠ Something went wrong (${counter})`;
+    } else {
+      clearInterval(interval);
+      resetButton();
+    }
+  }, 1000);
+}
+
+});
+
+async function loadAllQuestions() {
+const subjects = [
+  { file: "computers.json", count: 10 },
+  { file: "general-aptitude.json", count: 40 }
+];
+
+
+  let temp = [];
+
+  for (let subj of subjects) {
+    const res = await fetch(subj.file);
+    const data = await res.json();
+
+    
+    const selected = data.sort(() => Math.random() - 0.5).slice(0, subj.count);
+
+    
+    selected.forEach(q => {
+      if (!q.answer_en || !q.answer_hi) {
+        console.warn(`Question missing answer: ${q.question_en}`);
+      }
+    });
+
+    temp.push(...selected);
+  }
+
+  
+  allQuestions = temp.sort(() => Math.random() - 0.5);
+
+  renderSidebar(); 
+}
+
+
+function renderSidebar() {
+  const sidebar = document.querySelector(".sidebar");
+  sidebar.innerHTML = "<h3>Questions</h3>";
+  allQuestions.forEach((_, idx) => {
+    const numDiv = document.createElement("div");
+    numDiv.className = "number";
+    numDiv.textContent = idx + 1;
+    numDiv.addEventListener("click", () => {
+      renderQuestion(idx);
+    });
+    sidebar.appendChild(numDiv);
+  });
+}
+
+
+function renderQuestion(index) {
+  currentIndex = index;
+  const qDiv = document.querySelector(".questions");
+  const q = allQuestions[index];
+
+  const isLast = index === allQuestions.length - 1;
+
+  qDiv.innerHTML = `
+    <div class="question-card">
+      <h2>Q${index + 1}. ${q.question_en}</h2>
+      <h3 style="color:#555; font-weight:normal; margin-top:10px;">${q.question_hi}</h3>
+      ${q.options_en.map((opt, i) => `
+        <label class="option">
+          <input type="radio" name="q${index}" value="${opt}">
+          ${q.options_hi[i]} (${opt})
+        </label>`).join('')}
+    </div>
+    <div class="nav-buttons">
+      <button class="nav-btn prev-btn" ${index === 0 ? "disabled" : ""}>⬅ Previous</button>
+      ${isLast 
+        ? '<button class="nav-btn submit-btn">Submit Exam</button>' 
+        : '<button class="nav-btn next-btn">Next ➡</button>'}
+    </div>
+  `;
+
+  // Restore previously selected answer if any
+  if (userAnswers[index]) {
+    const selectedInput = qDiv.querySelector(`input[name="q${index}"][value="${userAnswers[index]}"]`);
+    if (selectedInput) selectedInput.checked = true;
+  }
+
+  // Add listener to update userAnswers array
+  const options = qDiv.querySelectorAll(`input[name="q${index}"]`);
+  options.forEach(input => {
+    input.addEventListener("change", () => {
+      userAnswers[index] = input.value;
+    });
+  });
+  qDiv.querySelector(".prev-btn").addEventListener("click", () => renderQuestion(currentIndex - 1));
+
+  if (!isLast) {
+    qDiv.querySelector(".next-btn").addEventListener("click", () => renderQuestion(currentIndex + 1));
+  } else {
+    qDiv.querySelector(".submit-btn").addEventListener("click", submitExam);
+  }
+
+  updateSidebarHighlight();
+}
+
+
+function updateSidebarHighlight() {
+  const numbers = document.querySelectorAll(".number");
+  numbers.forEach((num, idx) => {
+    num.style.background = idx === currentIndex ? "#007bff" : "#e4e7eb";
+    num.style.color = idx === currentIndex ? "#fff" : "#000";
+  });
+}
+
+// Timer function
+function startTimer(durationInMinutes) {
+  let time = durationInMinutes * 60;
+  const timerDisplay = document.getElementById("timer");
+
+  const interval = setInterval(() => {
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+    timerDisplay.textContent = `⏳ ${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+
+    if (time <= 0) {
+      clearInterval(interval);
+      score = calculateScore();
+      submitExam();
+    }
+    time--;
+  }, 1000);
+}
+
+function clearForm() {
+  const inputs = document.querySelectorAll("#start input");
+  inputs.forEach(input => input.value = "");
+}
+
+function calculateScore() {
+  let score = 0;
+
+  allQuestions.forEach((q, index) => {
+    const userAnswer = userAnswers[index]?.trim().toLowerCase(); // user answer
+    const correctAnswer = q.answer_en.trim().toLowerCase();      // correct answer
+
+    if (userAnswer && userAnswer === correctAnswer) {
+      score++;
+    }
+  });
+
+  return score;
+}
+</script>
+</body>
+</html>
