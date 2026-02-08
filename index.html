@@ -688,11 +688,11 @@
         // Record exam result in Supabase
         await supabaseClient.from('exam_result').insert([
           {
-            exam_id: currentExamId,
             roll_number: currentUser.roll_number,
+            exam_id: currentExamId,
             student_name: currentUser.student_name,
-            student_score: score,
-            father_name: currentUser.father_name
+            father_name: currentUser.father_name,
+            student_score: score
           }
         ]);
       } catch (err) {
@@ -807,5 +807,6 @@
     document.querySelector(".submit-btn").addEventListener("click", submitExam);
   </script>
 </body>
+
 
 </html>
