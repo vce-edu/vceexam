@@ -1,0 +1,834 @@
+[
+  {
+    "id": 201,
+    "subject": "Microsoft Word",
+    "difficulty": "easy",
+    "question_en": "Which of the following is a shortcut key for copy in Microsoft Word?",
+    "question_hi": "Microsoft Word में कॉपी करने की शॉर्टकट कुंजी कौन सी है?",
+    "options_en": [
+      "Ctrl+V",
+      "Ctrl+C",
+      "Ctrl+D",
+      "Ctrl+X"
+    ],
+    "options_hi": [
+      "Ctrl+V",
+      "Ctrl+C",
+      "Ctrl+D",
+      "Ctrl+X"
+    ],
+    "answer_en": "Ctrl+C",
+    "answer_hi": "Ctrl+C"
+  },
+  {
+    "id": 202,
+    "subject": "Microsoft Word",
+    "difficulty": "easy",
+    "question_en": "Is there a Table option inside Insert Tab?",
+    "question_hi": "क्या Insert Tab के अंदर Table का विकल्प होता है?",
+    "options_en": [
+      "Yes",
+      "No"
+    ],
+    "options_hi": [
+      "हाँ",
+      "नहीं"
+    ],
+    "answer_en": "Yes",
+    "answer_hi": "हाँ"
+  },
+  {
+    "id": 203,
+    "subject": "Microsoft Word",
+    "difficulty": "medium",
+    "question_en": "Can you increase the number of columns in a table using Draw Table option?",
+    "question_hi": "क्या आप Draw Table विकल्प का उपयोग करके टेबल में कॉलम की संख्या बढ़ा सकते हैं?",
+    "options_en": [
+      "Yes, We can",
+      "No, We can't"
+    ],
+    "options_hi": [
+      "हाँ, हम कर सकते हैं",
+      "नहीं, हम नहीं कर सकते"
+    ],
+    "answer_en": "Yes, We can",
+    "answer_hi": "हाँ, हम कर सकते हैं"
+  },
+  {
+    "id": 204,
+    "subject": "Microsoft Word",
+    "difficulty": "easy",
+    "question_en": "Which of the following shortcut key is used to select the whole document in MS Word?",
+    "question_hi": "MS Word में पूरे डॉक्यूमेंट को चुनने के लिए किस शॉर्टकट कुंजी का उपयोग किया जाता है?",
+    "options_en": [
+      "Ctrl + A",
+      "Ctrl + X",
+      "Ctrl + B",
+      "Ctrl + Y"
+    ],
+    "options_hi": [
+      "Ctrl + A",
+      "Ctrl + X",
+      "Ctrl + B",
+      "Ctrl + Y"
+    ],
+    "answer_en": "Ctrl + A",
+    "answer_hi": "Ctrl + A"
+  },
+  {
+    "id": 205,
+    "subject": "Microsoft Word",
+    "difficulty": "easy",
+    "question_en": "What do we do to select a word in MS Word?",
+    "question_hi": "MS Word में किसी शब्द को चुनने के लिए हम क्या करते हैं?",
+    "options_en": [
+      "Double Click",
+      "Triple Click",
+      "Right Click",
+      "Left Click"
+    ],
+    "options_hi": [
+      "डबल क्लिक (Double Click)",
+      "ट्रिपल क्लिक (Triple Click)",
+      "राइट क्लिक (Right Click)",
+      "लेफ्ट क्लिक (Left Click)"
+    ],
+    "answer_en": "Double Click",
+    "answer_hi": "डबल क्लिक (Double Click)"
+  },
+  {
+    "id": 206,
+    "subject": "Microsoft Word",
+    "difficulty": "medium",
+    "question_en": "What is the shortcut key for change case in MS Word?",
+    "question_hi": "MS Word में Change Case के लिए शॉर्टकट कुंजी क्या है?",
+    "options_en": [
+      "Ctrl + C",
+      "Ctrl + M",
+      "Ctrl + D",
+      "Shift + F3"
+    ],
+    "options_hi": [
+      "Ctrl + C",
+      "Ctrl + M",
+      "Ctrl + D",
+      "Shift + F3"
+    ],
+    "answer_en": "Shift + F3",
+    "answer_hi": "Shift + F3"
+  },
+  {
+    "id": 207,
+    "subject": "Microsoft Word",
+    "difficulty": "easy",
+    "question_en": "How many types of cases do you have in MS Word?",
+    "question_hi": "MS Word में कितने प्रकार के Case होते हैं?",
+    "options_en": [
+      "3",
+      "5",
+      "7",
+      "4"
+    ],
+    "options_hi": [
+      "3",
+      "5",
+      "7",
+      "4"
+    ],
+    "answer_en": "5",
+    "answer_hi": "5"
+  },
+  {
+    "id": 208,
+    "subject": "Microsoft Word",
+    "difficulty": "medium",
+    "question_en": "What is the shortcut key for aligning the text to left side of the document?",
+    "question_hi": "डॉक्यूमेंट के टेक्स्ट को बाईं (left) ओर अलाइन करने के लिए शॉर्टकट कुंजी क्या है?",
+    "options_en": [
+      "Ctrl + L",
+      "Ctrl + P",
+      "Ctrl + M",
+      "Ctrl + V"
+    ],
+    "options_hi": [
+      "Ctrl + L",
+      "Ctrl + P",
+      "Ctrl + M",
+      "Ctrl + V"
+    ],
+    "answer_en": "Ctrl + L",
+    "answer_hi": "Ctrl + L"
+  },
+  {
+    "id": 209,
+    "subject": "Microsoft Word",
+    "difficulty": "easy",
+    "question_en": "Which of the following is the shortcut for saving a document in MS Word?",
+    "question_hi": "MS Word में डॉक्यूमेंट सेव करने का शॉर्टकट क्या है?",
+    "options_en": [
+      "Ctrl + A",
+      "Ctrl + S",
+      "Ctrl + U",
+      "Ctrl + V"
+    ],
+    "options_hi": [
+      "Ctrl + A",
+      "Ctrl + S",
+      "Ctrl + U",
+      "Ctrl + V"
+    ],
+    "answer_en": "Ctrl + S",
+    "answer_hi": "Ctrl + S"
+  },
+  {
+    "id": 210,
+    "subject": "Microsoft Word",
+    "difficulty": "easy",
+    "question_en": "Shortcut key for paste in Microsoft Word?",
+    "question_hi": "Microsoft Word में पेस्ट (paste) करने की शॉर्टकट कुंजी क्या है?",
+    "options_en": [
+      "Ctrl + P",
+      "Ctrl + V",
+      "Ctrl + U",
+      "Ctrl + C"
+    ],
+    "options_hi": [
+      "Ctrl + P",
+      "Ctrl + V",
+      "Ctrl + U",
+      "Ctrl + C"
+    ],
+    "answer_en": "Ctrl + V",
+    "answer_hi": "Ctrl + V"
+  },
+  {
+    "id": 211,
+    "subject": "Microsoft Word",
+    "difficulty": "medium",
+    "question_en": "What is the shortcut key for 'Go to' in MS Word?",
+    "question_hi": "MS Word में 'Go to' के लिए शॉर्टकट कुंजी क्या है?",
+    "options_en": [
+      "Ctrl + Home",
+      "Ctrl + G",
+      "Ctrl + M",
+      "Ctrl + Space"
+    ],
+    "options_hi": [
+      "Ctrl + Home",
+      "Ctrl + G",
+      "Ctrl + M",
+      "Ctrl + Space"
+    ],
+    "answer_en": "Ctrl + G",
+    "answer_hi": "Ctrl + G"
+  },
+  {
+    "id": 212,
+    "subject": "Microsoft Word",
+    "difficulty": "medium",
+    "question_en": "What is the shortcut key for Redo in MS Word?",
+    "question_hi": "MS Word में Redo के लिए शॉर्टकट कुंजी क्या है?",
+    "options_en": [
+      "Ctrl + Z",
+      "Ctrl + Y",
+      "Ctrl + Shift + Z",
+      "Ctrl + R"
+    ],
+    "options_hi": [
+      "Ctrl + Z",
+      "Ctrl + Y",
+      "Ctrl + Shift + Z",
+      "Ctrl + R"
+    ],
+    "answer_en": "Ctrl + Y",
+    "answer_hi": "Ctrl + Y"
+  },
+  {
+    "id": 213,
+    "subject": "Microsoft Word",
+    "difficulty": "medium",
+    "question_en": "Which shortcut key is used to Indent a Paragraph?",
+    "question_hi": "पैराग्राफ को इंडेंट (Indent) करने के लिए किस शॉर्टकट कुंजी का उपयोग किया जाता है?",
+    "options_en": [
+      "Ctrl + M",
+      "Ctrl + P",
+      "Ctrl + Shift + I",
+      "Ctrl + I"
+    ],
+    "options_hi": [
+      "Ctrl + M",
+      "Ctrl + P",
+      "Ctrl + Shift + I",
+      "Ctrl + I"
+    ],
+    "answer_en": "Ctrl + M",
+    "answer_hi": "Ctrl + M"
+  },
+  {
+    "id": 214,
+    "subject": "Microsoft Word",
+    "difficulty": "medium",
+    "question_en": "What is the shortcut for opening Find Box in MS Word?",
+    "question_hi": "MS Word में Find Box खोलने के लिए शॉर्टकट क्या है?",
+    "options_en": [
+      "Ctrl + F",
+      "Ctrl + O",
+      "Ctrl + U",
+      "Ctrl + Q"
+    ],
+    "options_hi": [
+      "Ctrl + F",
+      "Ctrl + O",
+      "Ctrl + U",
+      "Ctrl + Q"
+    ],
+    "answer_en": "Ctrl + F",
+    "answer_hi": "Ctrl + F"
+  },
+  {
+    "id": 215,
+    "subject": "Microsoft Word",
+    "difficulty": "medium",
+    "question_en": "Which shortcut would you use to increase the size of selected text by 1?",
+    "question_hi": "चुने हुए टेक्स्ट का साइज 1 पॉइंट बढ़ाने के लिए आप किस शॉर्टकट का उपयोग करेंगे?",
+    "options_en": [
+      "Ctrl + Shift + >",
+      "Ctrl + ]",
+      "Ctrl + Q",
+      "Both option A and B"
+    ],
+    "options_hi": [
+      "Ctrl + Shift + >",
+      "Ctrl + ]",
+      "Ctrl + Q",
+      "विकल्प A और B दोनों"
+    ],
+    "answer_en": "Ctrl + ]",
+    "answer_hi": "Ctrl + ]"
+  },
+  {
+    "id": 216,
+    "subject": "Microsoft Word",
+    "difficulty": "easy",
+    "question_en": "Short Cut key for Undo?",
+    "question_hi": "Undo के लिए शॉर्टकट कुंजी क्या है?",
+    "options_en": [
+      "Ctrl + B",
+      "Ctrl + U",
+      "Ctrl + M",
+      "Ctrl + Z"
+    ],
+    "options_hi": [
+      "Ctrl + B",
+      "Ctrl + U",
+      "Ctrl + M",
+      "Ctrl + Z"
+    ],
+    "answer_en": "Ctrl + Z",
+    "answer_hi": "Ctrl + Z"
+  },
+  {
+    "id": 217,
+    "subject": "Microsoft Word",
+    "difficulty": "easy",
+    "question_en": "Which key combination is used to justify the content?",
+    "question_hi": "कंटेंट को Justify करने के लिए किस कुंजी संयोजन का उपयोग किया जाता है?",
+    "options_en": [
+      "Ctrl + C",
+      "Ctrl + J",
+      "Ctrl + I",
+      "Ctrl + D"
+    ],
+    "options_hi": [
+      "Ctrl + C",
+      "Ctrl + J",
+      "Ctrl + I",
+      "Ctrl + D"
+    ],
+    "answer_en": "Ctrl + J",
+    "answer_hi": "Ctrl + J"
+  },
+  {
+    "id": 218,
+    "subject": "Microsoft Word",
+    "difficulty": "easy",
+    "question_en": "What is Microsoft Word?",
+    "question_hi": "Microsoft Word क्या है?",
+    "options_en": [
+      "Operating System",
+      "Application Software",
+      "None of these",
+      "Both of these"
+    ],
+    "options_hi": [
+      "ऑपरेटिंग सिस्टम",
+      "एप्लीकेशन सॉफ्टवेयर (Application Software)",
+      "इनमें से कोई नहीं",
+      "ये दोनों"
+    ],
+    "answer_en": "Application Software",
+    "answer_hi": "एप्लीकेशन सॉफ्टवेयर (Application Software)"
+  },
+  {
+    "id": 219,
+    "subject": "Microsoft Word",
+    "difficulty": "medium",
+    "question_en": "What type of software is MS Word?",
+    "question_hi": "MS Word किस प्रकार का सॉफ्टवेयर है?",
+    "options_en": [
+      "System Software",
+      "Application Software",
+      "Operating System",
+      "None of these"
+    ],
+    "options_hi": [
+      "सिस्टम सॉफ्टवेयर",
+      "एप्लीकेशन सॉफ्टवेयर (Application Software)",
+      "ऑपरेटिंग सिस्टम",
+      "इनमें से कोई नहीं"
+    ],
+    "answer_en": "Application Software",
+    "answer_hi": "एप्लीकेशन सॉफ्टवेयर (Application Software)"
+  },
+  {
+    "id": 220,
+    "subject": "Microsoft Word",
+    "difficulty": "hard",
+    "question_en": "What is the default file extension of Microsoft Word?",
+    "question_hi": "Microsoft Word का डिफॉल्ट फाइल एक्सटेंशन क्या है?",
+    "options_en": [
+      "txt",
+      "docx",
+      "xls",
+      "pdf"
+    ],
+    "options_hi": [
+      "txt",
+      "docx",
+      "xls",
+      "pdf"
+    ],
+    "answer_en": "docx",
+    "answer_hi": "docx"
+  },
+  {
+    "id": 221,
+    "subject": "Microsoft Word",
+    "difficulty": "hard",
+    "question_en": "What is the use of 'Mail Merge'?",
+    "question_hi": "'Mail Merge' का क्या उपयोग है?",
+    "options_en": [
+      "To save the Document",
+      "To print the file",
+      "To check the spellings",
+      "To send the document to many people at once"
+    ],
+    "options_hi": [
+      "डॉक्यूमेंट सेव करने के लिए",
+      "फाइल प्रिंट करने के लिए",
+      "स्पेलिंग चेक करने के लिए",
+      "एक साथ कई लोगों को डॉक्यूमेंट भेजने के लिए"
+    ],
+    "answer_en": "To send the document to many people at once",
+    "answer_hi": "एक साथ कई लोगों को डॉक्यूमेंट भेजने के लिए"
+  },
+  {
+    "id": 222,
+    "subject": "Microsoft Word",
+    "difficulty": "medium",
+    "question_en": "Where do we have change case located in MS Word?",
+    "question_hi": "MS Word में Change Case विकल्प कहाँ स्थित होता है?",
+    "options_en": [
+      "Insert Tab",
+      "Home Tab",
+      "Layout Tab",
+      "Review Tab"
+    ],
+    "options_hi": [
+      "Insert Tab",
+      "Home Tab",
+      "Layout Tab",
+      "Review Tab"
+    ],
+    "answer_en": "Home Tab",
+    "answer_hi": "Home Tab"
+  },
+  {
+    "id": 223,
+    "subject": "Microsoft Word",
+    "difficulty": "medium",
+    "question_en": "Why do we use Ctrl + Shift + L?",
+    "question_hi": "हम Ctrl + Shift + L का उपयोग क्यों करते हैं?",
+    "options_en": [
+      "For Hyperlink",
+      "For Bullets",
+      "For Numbers",
+      "For outlining the heading"
+    ],
+    "options_hi": [
+      "हाइपरलिंक के लिए",
+      "बुलेट्स (Bullets) के लिए",
+      "नंबरिंग के लिए",
+      "हेडिंग की आउटलाइनिंग के लिए"
+    ],
+    "answer_en": "For Bullets",
+    "answer_hi": "बुलेट्स (Bullets) के लिए"
+  },
+  {
+    "id": 224,
+    "subject": "Microsoft Word",
+    "difficulty": "medium",
+    "question_en": "Minimum and Maximum Zoom inside MS Word?",
+    "question_hi": "MS Word में न्यूनतम और अधिकतम ज़ूम (Zoom) कितना होता है?",
+    "options_en": [
+      "10 % to 500 %",
+      "50 % to 200 %",
+      "10% to 100 %",
+      "0 % to 100 %"
+    ],
+    "options_hi": [
+      "10 % से 500 %",
+      "50 % से 200 %",
+      "10 % से 100 %",
+      "0 % से 100 %"
+    ],
+    "answer_en": "10 % to 500 %",
+    "answer_hi": "10 % से 500 %"
+  },
+  {
+    "id": 225,
+    "subject": "Microsoft Word",
+    "difficulty": "medium",
+    "question_en": "Why do we use 'Format Painter' in MS Word?",
+    "question_hi": "हम MS Word में 'Format Painter' का उपयोग क्यों करते हैं?",
+    "options_en": [
+      "To format the text",
+      "To Copy the Format",
+      "To bold the text",
+      "To insert the picture"
+    ],
+    "options_hi": [
+      "टेक्स्ट को फॉर्मेट करने के लिए",
+      "फॉर्मेट कॉपी करने के लिए",
+      "टेक्स्ट को बोल्ड करने के लिए",
+      "पिक्चर इन्सर्ट करने के लिए"
+    ],
+    "answer_en": "To Copy the Format",
+    "answer_hi": "फॉर्मेट कॉपी करने के लिए"
+  },
+  {
+    "id": 226,
+    "subject": "Microsoft Word",
+    "difficulty": "easy",
+    "question_en": "Which alignment is default alignment in MS Word?",
+    "question_hi": "MS Word में डिफॉल्ट अलाइनमेंट कौन सा होता है?",
+    "options_en": [
+      "Left",
+      "Right",
+      "Center",
+      "Justify"
+    ],
+    "options_hi": [
+      "बायाँ (Left)",
+      "दायाँ (Right)",
+      "मध्य (Center)",
+      "जस्टिफाई (Justify)"
+    ],
+    "answer_en": "Left",
+    "answer_hi": "बायाँ (Left)"
+  },
+  {
+    "id": 227,
+    "subject": "Microsoft Word",
+    "difficulty": "hard",
+    "question_en": "What do you mean by Gutter Margin?",
+    "question_hi": "Gutter Margin से आपका क्या मतलब है?",
+    "options_en": [
+      "The space between lines and paragraph",
+      "The extra margin space added for page binding",
+      "The blank space at the bottom of a page",
+      "The distance between words in a document"
+    ],
+    "options_hi": [
+      "लाइनों और पैराग्राफ के बीच की जगह",
+      "पेज बाइंडिंग के लिए जोड़ी गई अतिरिक्त मार्जिन जगह",
+      "पेज के नीचे खाली जगह",
+      "डॉक्यूमेंट में शब्दों के बीच की दूरी"
+    ],
+    "answer_en": "The extra margin space added for page binding",
+    "answer_hi": "पेज बाइंडिंग के लिए जोड़ी गई अतिरिक्त मार्जिन जगह"
+  },
+  {
+    "id": 228,
+    "subject": "Microsoft Word",
+    "difficulty": "easy",
+    "question_en": "Which option is used to change the page color in MS Word?",
+    "question_hi": "MS Word में पेज का रंग बदलने के लिए किस विकल्प का उपयोग किया जाता है?",
+    "options_en": [
+      "Home Tab",
+      "Insert Tab",
+      "Design Tab",
+      "Review Tab"
+    ],
+    "options_hi": [
+      "Home Tab",
+      "Insert Tab",
+      "Design Tab",
+      "Review Tab"
+    ],
+    "answer_en": "Design Tab",
+    "answer_hi": "Design Tab"
+  },
+  {
+    "id": 229,
+    "subject": "Microsoft Word",
+    "difficulty": "medium",
+    "question_en": "What is the shortcut key for Superscript in MS Word?",
+    "question_hi": "MS Word में Superscript के लिए शॉर्टकट कुंजी क्या है?",
+    "options_en": [
+      "Ctrl + =",
+      "Ctrl + Shift + +",
+      "Ctrl + +",
+      "Alt + Shift + S"
+    ],
+    "options_hi": [
+      "Ctrl + =",
+      "Ctrl + Shift + +",
+      "Ctrl + +",
+      "Alt + Shift + S"
+    ],
+    "answer_en": "Ctrl + Shift + +",
+    "answer_hi": "Ctrl + Shift + +"
+  },
+  {
+    "id": 230,
+    "subject": "Microsoft Word",
+    "difficulty": "easy",
+    "question_en": "Which shortcut key is used to insert a Hyperlink?",
+    "question_hi": "हाइपरलिंक (Hyperlink) इन्सर्ट करने के लिए किस शॉर्टकट कुंजी का उपयोग किया जाता है?",
+    "options_en": [
+      "Ctrl + H",
+      "Ctrl + K",
+      "Ctrl + L",
+      "Ctrl + M"
+    ],
+    "options_hi": [
+      "Ctrl + H",
+      "Ctrl + K",
+      "Ctrl + L",
+      "Ctrl + M"
+    ],
+    "answer_en": "Ctrl + K",
+    "answer_hi": "Ctrl + K"
+  },
+  {
+    "id": 231,
+    "subject": "Microsoft Word",
+    "difficulty": "medium",
+    "question_en": "What is the shortcut key for Page Break in MS Word?",
+    "question_hi": "MS Word में Page Break के लिए शॉर्टकट कुंजी क्या है?",
+    "options_en": [
+      "Ctrl + Enter",
+      "Alt + Enter",
+      "Shift + Enter",
+      "Ctrl + Shift + Enter"
+    ],
+    "options_hi": [
+      "Ctrl + Enter",
+      "Alt + Enter",
+      "Shift + Enter",
+      "Ctrl + Shift + Enter"
+    ],
+    "answer_en": "Ctrl + Enter",
+    "answer_hi": "Ctrl + Enter"
+  },
+  {
+    "id": 232,
+    "subject": "Microsoft Word",
+    "difficulty": "easy",
+    "question_en": "Where can you see the word count of your document?",
+    "question_hi": "आप अपने डॉक्यूमेंट के शब्दों की संख्या (word count) कहाँ देख सकते हैं?",
+    "options_en": [
+      "Status Bar",
+      "Ribbon",
+      "Title Bar",
+      "View Tab"
+    ],
+    "options_hi": [
+      "स्टेटस बार (Status Bar)",
+      "रिबन (Ribbon)",
+      "टाइटल बार (Title Bar)",
+      "व्यू टैब (View Tab)"
+    ],
+    "answer_en": "Status Bar",
+    "answer_hi": "स्टेटस बार (Status Bar)"
+  },
+  {
+    "id": 233,
+    "subject": "Microsoft Word",
+    "difficulty": "medium",
+    "question_en": "Which feature allows you to add a ghost text behind the content of the page?",
+    "question_hi": "कौन सी सुविधा आपको पेज के कंटेंट के पीछे एक घोस्ट टेक्स्ट (ghost text) जोड़ने की अनुमति देती है?",
+    "options_en": [
+      "Watermark",
+      "Bookmark",
+      "Footer",
+      "Ghostwriter"
+    ],
+    "options_hi": [
+      "वॉटरमार्क (Watermark)",
+      "बुकमार्क (Bookmark)",
+      "फुटर (Footer)",
+      "घोस्टराइटर (Ghostwriter)"
+    ],
+    "answer_en": "Watermark",
+    "answer_hi": "वॉटरमार्क (Watermark)"
+  },
+  {
+    "id": 234,
+    "subject": "Microsoft Word",
+    "difficulty": "hard",
+    "question_en": "Where do Footnotes appear in a document?",
+    "question_hi": "डॉक्यूमेंट में फुट नोट्स (Footnotes) कहाँ दिखाई देते हैं?",
+    "options_en": [
+      "At the end of the document",
+      "At the bottom of the page",
+      "At the top of the page",
+      "In the header"
+    ],
+    "options_hi": [
+      "डॉक्यूमेंट के अंत में",
+      "पेज के नीचे (Bottom)",
+      "पेज के ऊपर (Top)",
+      "हेडर में"
+    ],
+    "answer_en": "At the bottom of the page",
+    "answer_hi": "पेज के नीचे (Bottom)"
+  },
+  {
+    "id": 235,
+    "subject": "Microsoft Word",
+    "difficulty": "hard",
+    "question_en": "Which feature is used to record a series of commands for later use?",
+    "question_hi": "बाद में उपयोग के लिए कमांड की एक श्रृंखला रिकॉर्ड करने के लिए किस सुविधा का उपयोग किया जाता है?",
+    "options_en": [
+      "Template",
+      "Macros",
+      "Mail Merge",
+      "Track Changes"
+    ],
+    "options_hi": [
+      "टेम्प्लेट (Template)",
+      "मैक्रोज़ (Macros)",
+      "मेल मर्ज (Mail Merge)",
+      "ट्रैक चेंजेस (Track Changes)"
+    ],
+    "answer_en": "Macros",
+    "answer_hi": "मैक्रोज़ (Macros)"
+  },
+  {
+    "id": 236,
+    "subject": "Microsoft Word",
+    "difficulty": "medium",
+    "question_en": "Which option is used to make the first letter of a paragraph large across multiple lines?",
+    "question_hi": "पैराग्राफ का पहला अक्षर कई लाइनों में बड़ा करने के लिए किस विकल्प का उपयोग किया जाता है?",
+    "options_en": [
+      "WordArt",
+      "Drop Cap",
+      "Large Caps",
+      "Superscript"
+    ],
+    "options_hi": [
+      "वर्ड आर्ट",
+      "ड्रॉप कैप",
+      "लार्ज कैप्स",
+      "सुपरस्क्रिप्ट"
+    ],
+    "answer_en": "Drop Cap",
+    "answer_hi": "ड्रॉप कैप"
+  },
+  {
+    "id": 237,
+    "subject": "Microsoft Word",
+    "difficulty": "medium",
+    "question_en": "What is the shortcut key for Thesaurus in MS Word?",
+    "question_hi": "MS Word में थिसॉरस (Thesaurus) के लिए शॉर्टकट कुंजी क्या है?",
+    "options_en": [
+      "F7",
+      "Shift + F7",
+      "Ctrl + F7",
+      "Alt + F7"
+    ],
+    "options_hi": [
+      "F7",
+      "Shift + F7",
+      "Ctrl + F7",
+      "Alt + F7"
+    ],
+    "answer_en": "Shift + F7",
+    "answer_hi": "Shift + F7"
+  },
+  {
+    "id": 238,
+    "subject": "Microsoft Word",
+    "difficulty": "easy",
+    "question_en": "Landscape and Portrait are examples of what?",
+    "question_hi": "Landscape और Portrait किसके उदाहरण हैं?",
+    "options_en": [
+      "Page Orientation",
+      "Page Size",
+      "Page Margin",
+      "Paper Source"
+    ],
+    "options_hi": [
+      "पेज ओरिएंटेशन (Page Orientation)",
+      "पेज साइज",
+      "पेज मार्जिन",
+      "पेपर सोर्स"
+    ],
+    "answer_en": "Page Orientation",
+    "answer_hi": "पेज ओरिएंटेशन (Page Orientation)"
+  },
+  {
+    "id": 239,
+    "subject": "Microsoft Word",
+    "difficulty": "hard",
+    "question_en": "In Mail Merge, the list of recipients is known as what?",
+    "question_hi": "मेल मर्ज (Mail Merge) में, प्राप्तकर्ताओं की सूची को क्या कहा जाता है?",
+    "options_en": [
+      "Data Source",
+      "Main Document",
+      "Merge Field",
+      "Address Book"
+    ],
+    "options_hi": [
+      "डेटा सोर्स",
+      "मेन डॉक्यूमेंट",
+      "मर्ज फील्ड",
+      "एड्रेस बुक"
+    ],
+    "answer_en": "Data Source",
+    "answer_hi": "डेटा सोर्स"
+  },
+  {
+    "id": 240,
+    "subject": "Microsoft Word",
+    "difficulty": "hard",
+    "question_en": "Which shortcut key is used to split the document window?",
+    "question_hi": "डॉक्यूमेंट विंडो को विभाजित (split) करने के लिए किस शॉर्टकट कुंजी का उपयोग किया जाता है?",
+    "options_en": [
+      "Ctrl + Alt + S",
+      "Ctrl + Shift + S",
+      "Alt + Split",
+      "None of these"
+    ],
+    "options_hi": [
+      "Ctrl + Alt + S",
+      "Ctrl + Shift + S",
+      "Alt + Split",
+      "इनमें से कोई नहीं"
+    ],
+    "answer_en": "Ctrl + Alt + S",
+    "answer_hi": "Ctrl + Alt + S"
+  }
+]
