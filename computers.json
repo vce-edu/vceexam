@@ -88,13 +88,13 @@
       "Left Click"
     ],
     "options_hi": [
-      "डबल क्लिक (Double Click)",
-      "ट्रिपल क्लिक (Triple Click)",
-      "राइट क्लिक (Right Click)",
-      "लेफ्ट क्लिक (Left Click)"
+      "डबल क्लिक",
+      "ट्रिपल क्लिक",
+      "राइट क्लिक",
+      "लेफ्ट क्लिक"
     ],
     "answer_en": "Double Click",
-    "answer_hi": "डबल क्लिक (Double Click)"
+    "answer_hi": "डबल क्लिक"
   },
   {
     "id": 206,
@@ -362,12 +362,12 @@
     ],
     "options_hi": [
       "ऑपरेटिंग सिस्टम",
-      "एप्लीकेशन सॉफ्टवेयर (Application Software)",
+      "एप्लीकेशन सॉफ्टवेयर",
       "इनमें से कोई नहीं",
       "ये दोनों"
     ],
     "answer_en": "Application Software",
-    "answer_hi": "एप्लीकेशन सॉफ्टवेयर (Application Software)"
+    "answer_hi": "एप्लीकेशन सॉफ्टवेयर"
   },
   {
     "id": 219,
@@ -383,12 +383,12 @@
     ],
     "options_hi": [
       "सिस्टम सॉफ्टवेयर",
-      "एप्लीकेशन सॉफ्टवेयर (Application Software)",
+      "एप्लीकेशन सॉफ्टवेयर",
       "ऑपरेटिंग सिस्टम",
       "इनमें से कोई नहीं"
     ],
     "answer_en": "Application Software",
-    "answer_hi": "एप्लीकेशन सॉफ्टवेयर (Application Software)"
+    "answer_hi": "एप्लीकेशन सॉफ्टवेयर"
   },
   {
     "id": 220,
@@ -467,12 +467,12 @@
     ],
     "options_hi": [
       "हाइपरलिंक के लिए",
-      "बुलेट्स (Bullets) के लिए",
+      "बुलेट्स के लिए",
       "नंबरिंग के लिए",
       "हेडिंग की आउटलाइनिंग के लिए"
     ],
     "answer_en": "For Bullets",
-    "answer_hi": "बुलेट्स (Bullets) के लिए"
+    "answer_hi": "बुलेट्स के लिए"
   },
   {
     "id": 224,
@@ -529,13 +529,13 @@
       "Justify"
     ],
     "options_hi": [
-      "बायाँ (Left)",
-      "दायाँ (Right)",
-      "मध्य (Center)",
-      "जस्टिफाई (Justify)"
+      "बायाँ",
+      "दायाँ",
+      "मध्य",
+      "जस्टिफाई"
     ],
     "answer_en": "Left",
-    "answer_hi": "बायाँ (Left)"
+    "answer_hi": "बायाँ"
   },
   {
     "id": 227,
@@ -655,13 +655,13 @@
       "View Tab"
     ],
     "options_hi": [
-      "स्टेटस बार (Status Bar)",
-      "रिबन (Ribbon)",
-      "टाइटल बार (Title Bar)",
-      "व्यू टैब (View Tab)"
+      "स्टेटस बार",
+      "रिबन",
+      "टाइटल बार",
+      "व्यू टैब"
     ],
     "answer_en": "Status Bar",
-    "answer_hi": "स्टेटस बार (Status Bar)"
+    "answer_hi": "स्टेटस बार"
   },
   {
     "id": 233,
@@ -676,13 +676,13 @@
       "Ghostwriter"
     ],
     "options_hi": [
-      "वॉटरमार्क (Watermark)",
-      "बुकमार्क (Bookmark)",
-      "फुटर (Footer)",
-      "घोस्टराइटर (Ghostwriter)"
+      "वॉटरमार्क",
+      "बुकमार्क",
+      "फुटर",
+      "घोस्टराइटर"
     ],
     "answer_en": "Watermark",
-    "answer_hi": "वॉटरमार्क (Watermark)"
+    "answer_hi": "वॉटरमार्क"
   },
   {
     "id": 234,
@@ -698,8 +698,8 @@
     ],
     "options_hi": [
       "डॉक्यूमेंट के अंत में",
-      "पेज के नीचे (Bottom)",
-      "पेज के ऊपर (Top)",
+      "पेज के नीचे",
+      "पेज के ऊपर",
       "हेडर में"
     ],
     "answer_en": "At the bottom of the page",
@@ -718,13 +718,13 @@
       "Track Changes"
     ],
     "options_hi": [
-      "टेम्प्लेट (Template)",
-      "मैक्रोज़ (Macros)",
-      "मेल मर्ज (Mail Merge)",
-      "ट्रैक चेंजेस (Track Changes)"
+      "टेम्प्लेट",
+      "मैक्रोज़",
+      "मेल मर्ज",
+      "ट्रैक चेंजेस"
     ],
     "answer_en": "Macros",
-    "answer_hi": "मैक्रोज़ (Macros)"
+    "answer_hi": "मैक्रोज़"
   },
   {
     "id": 236,
@@ -781,13 +781,13 @@
       "Paper Source"
     ],
     "options_hi": [
-      "पेज ओरिएंटेशन (Page Orientation)",
+      "पेज ओरिएंटेशन",
       "पेज साइज",
       "पेज मार्जिन",
       "पेपर सोर्स"
     ],
     "answer_en": "Page Orientation",
-    "answer_hi": "पेज ओरिएंटेशन (Page Orientation)"
+    "answer_hi": "पेज ओरिएंटेशन"
   },
   {
     "id": 239,
@@ -831,4 +831,5 @@
     "answer_en": "Ctrl + Alt + S",
     "answer_hi": "Ctrl + Alt + S"
   }
+
 ]
