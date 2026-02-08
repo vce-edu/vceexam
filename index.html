@@ -686,17 +686,25 @@
 
       try {
         // Record exam result in Supabase
-        await supabaseClient.from('exam_result').insert([
+        const { error } = await supabaseClient.from('exam_result').insert([
           {
             roll_number: currentUser.roll_number,
             exam_id: currentExamId,
             student_name: currentUser.student_name,
             father_name: currentUser.father_name,
-            student_score: score
+            score: score
           }
         ]);
+
+        if (error) {
+          console.error("Supabase insert error:", error);
+          alert("Error saving result: " + error.message);
+        } else {
+          console.log("Result saved successfully");
+        }
       } catch (err) {
         console.error("Submission error:", err);
+        alert("Something went wrong while submitting the exam.");
       }
 
       document.getElementById("exam").style.display = "none";
