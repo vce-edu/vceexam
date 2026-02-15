@@ -428,7 +428,7 @@
       <option value="third">Third Branch</option>
     </select>
     <input id="roll-input" type="text" placeholder="Roll Number" />
-    <input id="exam-id-input" type="text" placeholder="Exam ID" value="101:MS" readonly />
+    <input id="exam-id-input" type="text" placeholder="Exam ID" readonly />
     <button id="start-exam">Start Exam</button>
   </div>
 
@@ -471,6 +471,10 @@
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBndndqc2t1YmZvbm1pcnRhb2RvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk4MjY2OTUsImV4cCI6MjA3NTQwMjY5NX0.dTHvwiH_UZC7K8pxLYIt5VOstu-4Shy0DW3n3C8TJsg';
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+    const EXAM_SUPABASE_URL = 'https://owzmqbzibisycviphuux.supabase.co';
+    const EXAM_SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im93em1xYnppYmlzeWN2aXBodXV4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzExMDk5MjIsImV4cCI6MjA4NjY4NTkyMn0.aNqwz60R53XslePMeuJ3HfpAXowWg4JEYrsWkcAcDSA';
+    const examSupabase = supabase.createClient(EXAM_SUPABASE_URL, EXAM_SUPABASE_KEY);
+
     let allQuestions = [];
     let currentIndex = 0;
     let userAnswers = [];
@@ -485,6 +489,52 @@
       });
     }
 
+    async function translateText(text, targetLang = 'hi') {
+      if (!text) return "";
+      try {
+        const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`;
+        const response = await fetch(url);
+        const data = await response.json();
+        return data[0].map(item => item[0]).join('');
+      } catch (error) {
+        console.error("Translation error:", error);
+        return text; // Fallback to original text
+      }
+    }
+
+    document.getElementById("branch-select").addEventListener("change", async (e) => {
+      const branch = e.target.value;
+      const examInput = document.getElementById("exam-id-input");
+      examInput.value = "";
+      examInput.placeholder = "Loading Exam...";
+
+      if (!branch) {
+        examInput.placeholder = "Exam ID";
+        return;
+      }
+
+      try {
+        const { data: exams, error } = await examSupabase
+          .from('exam_info')
+          .select('exam_id')
+          .eq('branch', branch)
+          .order('created_at', { ascending: false })
+          .limit(1);
+
+        if (error) throw error;
+
+        if (exams && exams.length > 0) {
+          examInput.value = exams[0].exam_id;
+          examInput.placeholder = "Exam ID";
+        } else {
+          examInput.placeholder = "No exam found for this branch";
+        }
+      } catch (err) {
+        console.error("Error fetching exams:", err);
+        examInput.placeholder = "Error loading exam";
+      }
+    });
+
     document.getElementById("start-exam").addEventListener("click", async () => {
       const startBtn = document.getElementById("start-exam");
       const branchSelect = document.getElementById("branch-select");
@@ -495,8 +545,8 @@
       const roll = rollInput.value.trim();
       const examId = examIdInput.value.trim();
 
-      if (!branch || !roll) {
-        alert("Please select branch and enter roll number");
+      if (!branch || !roll || !examId) {
+        alert("Please select branch and enter roll number (Exam ID must be loaded)");
         return;
       }
 
@@ -547,7 +597,16 @@
         document.getElementById("start").style.display = "none";
         document.getElementById("exam").style.display = "grid";
 
-        startTimer(30);
+        // Fetch Exam Duration
+        const { data: examInfo, error: examError } = await examSupabase
+          .from('exam_info')
+          .select('duration_mins')
+          .eq('exam_id', examId)
+          .single();
+
+        const duration = (examInfo && examInfo.duration_mins) ? examInfo.duration_mins : 30;
+
+        startTimer(duration);
         await loadAllQuestions();
         renderQuestion(0);
 
@@ -562,14 +621,78 @@
 
     async function loadAllQuestions() {
       try {
-        const res = await fetch("computers.json");
-        const data = await res.json();
+        // Fetch question IDs associated with the current exam
+        const { data: examQs, error: eqError } = await examSupabase
+          .from('exam_questions')
+          .select('question_id')
+          .eq('exam_id', currentExamId);
 
-        // Select 20 random questions
-        allQuestions = data.sort(() => Math.random() - 0.5).slice(0, 20);
+        if (eqError) throw eqError;
+        if (!examQs || examQs.length === 0) {
+          console.error("No questions found for this exam ID.");
+          return;
+        }
+
+        const qIds = examQs.map(q => q.question_id);
+
+        // Fetch the actual questions using the IDs obtained
+        const { data: questions, error: qError } = await examSupabase
+          .from('questions')
+          .select('*')
+          .in('question_id', qIds);
+
+        if (qError) throw qError;
+
+        // Fetch total questions count for this exam
+        const { data: examInfo } = await examSupabase
+          .from('exam_info')
+          .select('total_questions')
+          .eq('exam_id', currentExamId)
+          .single();
+
+        const questionCount = examInfo?.total_questions || 20;
+
+        // Shuffle and take based on total_questions
+        const selectedQuestions = questions.sort(() => Math.random() - 0.5).slice(0, questionCount);
+
+        // Fetch options for these questions
+        const questionIds = selectedQuestions.map(q => q.question_id);
+        const { data: options, error: oError } = await examSupabase
+          .from('question_options')
+          .select('*')
+          .in('question_id', questionIds);
+
+        if (oError) throw oError;
+
+        // Group options by question_id and translate
+        const processedQuestions = await Promise.all(selectedQuestions.map(async (q) => {
+          const qOptions = options.filter(opt => opt.question_id === q.question_id);
+
+          // Translate question text
+          const questionHi = await translateText(q.question_text);
+
+          // Translate options
+          const translatedOptions = await Promise.all(qOptions.map(async (opt) => ({
+            text_en: opt.option_text,
+            text_hi: await translateText(opt.option_text),
+            is_correct: opt.is_correct
+          })));
+
+          return {
+            id: q.question_id,
+            question_en: q.question_text,
+            question_hi: questionHi,
+            options_en: translatedOptions.map(o => o.text_en),
+            options_hi: translatedOptions.map(o => o.text_hi),
+            answer_en: translatedOptions.find(o => o.is_correct)?.text_en || "",
+            answer_hi: translatedOptions.find(o => o.is_correct)?.text_hi || ""
+          };
+        }));
+
+        allQuestions = processedQuestions;
         renderSidebar();
       } catch (err) {
-        console.error("Error loading questions:", err);
+        console.error("Error loading questions from Supabase:", err);
       }
     }
 
