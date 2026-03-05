@@ -415,6 +415,106 @@
       grid-template-columns: 1fr;
     }
   }
+
+  /* Custom Fee Modal Styles */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+  }
+
+  .modal-card {
+    background: white;
+    width: 90%;
+    max-width: 450px;
+    padding: 35px;
+    border-radius: 24px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    text-align: center;
+    animation: modalBounce 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  @keyframes modalBounce {
+    from {
+      transform: scale(0.8) translateY(30px);
+      opacity: 0;
+    }
+
+    to {
+      transform: scale(1) translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .modal-card h2 {
+    color: #0f172a;
+    margin-bottom: 24px;
+    font-size: 26px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .modal-message {
+    margin-bottom: 30px;
+    text-align: left;
+  }
+
+  .msg-en {
+    font-size: 17px;
+    color: #334155;
+    font-weight: 600;
+    margin-bottom: 15px;
+    padding-left: 10px;
+    border-left: 4px solid #3b82f6;
+    line-height: 1.5;
+  }
+
+  .msg-hi {
+    font-size: 17px;
+    color: #475569;
+    background: #f8fafc;
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    line-height: 1.6;
+    font-weight: 500;
+  }
+
+  .modal-btn {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 14px 45px;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+  }
+
+  .modal-btn:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+  }
+
+  .modal-btn:active {
+    transform: translateY(0);
+  }
 </style>
 
 <body>
@@ -466,14 +566,24 @@
     <!-- Full page results will be injected here -->
   </div>
 
+  <!-- Custom Fee Modal -->
+  <div id="fee-modal" class="modal-overlay">
+    <div class="modal-card">
+      <h2>⚠️ Attention / ध्यान दें</h2>
+      <div class="modal-message">
+        <p id="modal-msg-en" class="msg-en"></p>
+        <p id="modal-msg-hi" class="msg-hi"></p>
+      </div>
+      <button class="modal-btn" onclick="closeFeeModal()">OK / ठीक है</button>
+    </div>
+  </div>
+
   <script>
-    // const SUPABASE_URL = 'https://pgvwjskubfonmirtaodo.supabase.co';
-    const SUPABASE_URL = 'https://vce.jiobase.com';
+    const SUPABASE_URL = 'https://pgvwjskubfonmirtaodo.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBndndqc2t1YmZvbm1pcnRhb2RvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk4MjY2OTUsImV4cCI6MjA3NTQwMjY5NX0.dTHvwiH_UZC7K8pxLYIt5VOstu-4Shy0DW3n3C8TJsg';
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    // const EXAM_SUPABASE_URL = 'https://owzmqbzibisycviphuux.supabase.co';
-    const EXAM_SUPABASE_URL = 'https://thrd-vce.jiobase.com';
+    const EXAM_SUPABASE_URL = 'https://owzmqbzibisycviphuux.supabase.co';
     const EXAM_SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im93em1xYnppYmlzeWN2aXBodXV4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzExMDk5MjIsImV4cCI6MjA4NjY4NTkyMn0.aNqwz60R53XslePMeuJ3HfpAXowWg4JEYrsWkcAcDSA';
     const examSupabase = supabase.createClient(EXAM_SUPABASE_URL, EXAM_SUPABASE_KEY);
 
@@ -501,6 +611,55 @@
       } catch (error) {
         console.error("Translation error:", error);
         return text; // Fallback to original text
+      }
+    }
+
+    function showFeeStatusModal(en, hi) {
+      document.getElementById("modal-msg-en").textContent = en;
+      document.getElementById("modal-msg-hi").textContent = hi;
+      document.getElementById("fee-modal").style.display = "flex";
+    }
+
+    window.closeFeeModal = function () {
+      document.getElementById("fee-modal").style.display = "none";
+    };
+
+    async function verifyStudentFeeStatus(rollNumber, branch = "all") {
+      try {
+        const { data, error } = await supabaseClient.rpc("get_student_fee_status", {
+          p_branch: branch,
+          p_search: rollNumber,
+          p_only_pending: false,
+          p_limit: 10,
+          p_offset: 0,
+        });
+
+        if (error) throw error;
+
+        const student = data?.find(
+          (r) => String(r.roll_number).trim() === String(rollNumber).trim()
+        );
+
+        if (!student) {
+          return {
+            exists: false,
+            isCleared: false,
+            message: "Roll number not found in fee records."
+          };
+        }
+
+        const status = student.status || "";
+        const isCleared = status.includes("UP") || status.includes("COURSE-COMPLETED");
+
+        return {
+          exists: true,
+          isCleared: isCleared,
+          currentStatus: status,
+          details: student
+        };
+      } catch (err) {
+        console.error("Verification error:", err);
+        throw err;
       }
     }
 
@@ -560,6 +719,47 @@
       startBtn.style.background = "grey";
 
       try {
+        // Step 1: Check if Exam is Restricted
+        const { data: examData, error: examErr } = await examSupabase
+          .from('exam_info')
+          .select('restricted')
+          .eq('exam_id', examId)
+          .single();
+
+        if (examErr) {
+          console.error("Error fetching exam restriction:", examErr);
+        }
+
+        const isRestricted = examData ? examData.restricted : false;
+
+        if (isRestricted) {
+          // Step 1b: Verify Fees ONLY if Restricted
+          const feeResult = await verifyStudentFeeStatus(formattedId, branch);
+
+          if (!feeResult.exists) {
+            showFeeStatusModal(
+              "Roll number not found in fee records. Please check your details.",
+              "फीस रिकॉर्ड में रोल नंबर नहीं मिला। कृपया अपने विवरण की जाँच करें।"
+            );
+            startBtn.disabled = false;
+            startBtn.textContent = originalText;
+            startBtn.style.background = "#007bff";
+            return;
+          }
+
+          if (!feeResult.isCleared) {
+            showFeeStatusModal(
+              `Academic Dues Pending! Your current status is: ${feeResult.currentStatus}. Please clear your dues to proceed.`,
+              `अकादमिक बकाया लंबित है! आपकी वर्तमान स्थिति है: ${feeResult.currentStatus}। आगे बढ़ने के लिए कृपया अपना बकाया जमा करें।`
+            );
+            startBtn.disabled = false;
+            startBtn.textContent = originalText;
+            startBtn.style.background = "#007bff";
+            return;
+          }
+        }
+
+        // Step 2: Verify Student Profile
         const { data: student, error } = await supabaseClient
           .from('students')
           .select('*')
@@ -567,7 +767,7 @@
           .single();
 
         if (error || !student) {
-          alert("Roll number not found. Please check your details.");
+          alert("Student profile not found. Please contact administration.");
           startBtn.disabled = false;
           startBtn.textContent = originalText;
           startBtn.style.background = "#007bff";
