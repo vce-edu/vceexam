@@ -594,6 +594,15 @@
     let currentExamId = "";
     let examSubmitted = false;
 
+    // ── NEW HELPER ──────────────────────────────────────────────────────────────
+    // Replaces the literal characters /n (forward-slash + n) with an HTML <br>
+    // so multi-line questions and options render correctly.
+    function formatText(text) {
+      if (!text) return "";
+      return text.split("/n").join("<br>");
+    }
+    // ────────────────────────────────────────────────────────────────────────────
+
     function toTitleCase(str) {
       if (!str) return "";
       return str.replace(/\w\S*/g, function (txt) {
@@ -610,7 +619,7 @@
         return data[0].map(item => item[0]).join('');
       } catch (error) {
         console.error("Translation error:", error);
-        return text; // Fallback to original text
+        return text;
       }
     }
 
@@ -870,19 +879,23 @@
         const processedQuestions = await Promise.all(selectedQuestions.map(async (q) => {
           const qOptions = options.filter(opt => opt.question_id === q.question_id);
 
-          // Translate question text
-          const questionHi = await translateText(q.question_text);
+          // Translate question text (strip /n before sending to translator for cleaner output)
+          const cleanQuestionText = q.question_text.split("/n").join(" ");
+          const questionHi = await translateText(cleanQuestionText);
 
-          // Translate options
-          const translatedOptions = await Promise.all(qOptions.map(async (opt) => ({
-            text_en: opt.option_text,
-            text_hi: await translateText(opt.option_text),
-            is_correct: opt.is_correct
-          })));
+          // Translate options (strip /n before sending to translator)
+          const translatedOptions = await Promise.all(qOptions.map(async (opt) => {
+            const cleanOptText = opt.option_text.split("/n").join(" ");
+            return {
+              text_en: opt.option_text,       // keep original /n for display
+              text_hi: await translateText(cleanOptText),
+              is_correct: opt.is_correct
+            };
+          }));
 
           return {
             id: q.question_id,
-            question_en: q.question_text,
+            question_en: q.question_text,     // kept raw; formatText() handles /n at render time
             question_hi: questionHi,
             options_en: translatedOptions.map(o => o.text_en),
             options_hi: translatedOptions.map(o => o.text_hi),
@@ -919,12 +932,12 @@
 
       qDiv.innerHTML = `
     <div class="question-card">
-      <h2>Q${index + 1}. ${q.question_en}</h2>
-      <h3 style="color:#555; font-weight:normal; margin-top:10px;">${q.question_hi || ""}</h3>
+      <h2>Q${index + 1}. ${formatText(q.question_en)}</h2>
+      <h3 style="color:#555; font-weight:normal; margin-top:10px;">${formatText(q.question_hi) || ""}</h3>
       ${q.options_en.map((opt, i) => `
         <label class="option">
           <input type="radio" name="q${index}" value="${opt}">
-          ${(q.options_hi && q.options_hi[i]) || opt} (${opt})
+          ${formatText((q.options_hi && q.options_hi[i]) || opt)} (${formatText(opt)})
         </label>`).join('')}
     </div>
     <div class="nav-buttons">
@@ -1034,9 +1047,6 @@
 
       document.getElementById("exam").style.display = "none";
       document.getElementById("success").style.display = "flex";
-
-      // Optional: Auto-reload after longer delay to let them see results
-      // setTimeout(() => location.reload(), 30000); 
     }
 
     function renderResultsDashboard(score) {
@@ -1066,18 +1076,18 @@
 
         return `
       <div class="review-card ${isCorrect ? 'correct' : 'incorrect'}">
-        <div class="question-text">${i + 1}. ${q.question_en}</div>
-        <div class="question-text-hi" style="color: #64748b; font-size: 16px; margin-top: -12px; margin-bottom: 20px; font-weight: 500; font-family: Arial, sans-serif;">${q.question_hi || ""}</div>
+        <div class="question-text">${i + 1}. ${formatText(q.question_en)}</div>
+        <div class="question-text-hi" style="color: #64748b; font-size: 16px; margin-top: -12px; margin-bottom: 20px; font-weight: 500; font-family: Arial, sans-serif;">${formatText(q.question_hi) || ""}</div>
         <div class="answer-comparison">
           <div class="ans-box user ${isCorrect ? 'correct' : 'wrong'}">
             <label>Your Answer</label>
-            <div style="font-weight: 700;">${userAns}</div>
-            <div style="font-size: 13px; margin-top: 4px; opacity: 0.8;">${userAnsHi}</div>
+            <div style="font-weight: 700;">${formatText(userAns)}</div>
+            <div style="font-size: 13px; margin-top: 4px; opacity: 0.8;">${formatText(userAnsHi)}</div>
           </div>
           <div class="ans-box correct">
             <label>Correct Answer</label>
-            <div style="font-weight: 700;">${correctAns}</div>
-            <div style="font-size: 13px; margin-top: 4px; opacity: 0.8;">${correctAnsHi}</div>
+            <div style="font-weight: 700;">${formatText(correctAns)}</div>
+            <div style="font-size: 13px; margin-top: 4px; opacity: 0.8;">${formatText(correctAnsHi)}</div>
           </div>
         </div>
       </div>
@@ -1140,6 +1150,5 @@
     document.querySelector(".submit-btn").addEventListener("click", submitExam);
   </script>
 </body>
-
 
 </html>
