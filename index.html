@@ -728,15 +728,34 @@
       startBtn.style.background = "grey";
 
       try {
-        // Step 1: Check if Exam is Restricted
+        // Step 1: Check if Exam is Restricted AND whether it is open yet (operation_time)
         const { data: examData, error: examErr } = await examSupabase
           .from('exam_info')
-          .select('restricted')
+          .select('restricted, operation_time')
           .eq('exam_id', examId)
           .single();
 
         if (examErr) {
           console.error("Error fetching exam restriction:", examErr);
+        }
+
+        // Step 1a: Block immediately if operation_time is set and is in the future.
+        // No fee check, no profile check, no exception — exam simply cannot start yet.
+        if (examData && examData.operation_time) {
+          const opTime = new Date(examData.operation_time);
+          const now = new Date();
+
+          if (!isNaN(opTime.getTime()) && opTime.getTime() > now.getTime()) {
+            const opTimeStr = opTime.toLocaleString();
+            showFeeStatusModal(
+              `This exam is not open yet. It will become available on ${opTimeStr}. Please come back then.`,
+              `यह परीक्षा अभी शुरू नहीं हुई है। यह ${opTimeStr} पर उपलब्ध होगी। कृपया उस समय पुनः प्रयास करें।`
+            );
+            startBtn.disabled = false;
+            startBtn.textContent = originalText;
+            startBtn.style.background = "#007bff";
+            return;
+          }
         }
 
         const isRestricted = examData ? examData.restricted : false;
