@@ -528,7 +528,7 @@
       <option value="third">Third Branch</option>
     </select>
     <input id="roll-input" type="text" placeholder="Roll Number" />
-    <input id="exam-id-input" type="text" placeholder="Exam ID" readonly value="TALLY"/>
+    <input id="exam-id-input" type="text" placeholder="Exam ID" readonly />
     <button id="start-exam">Start Exam</button>
   </div>
 
@@ -684,17 +684,38 @@
       }
 
       try {
+        // NOTE: created_at ordering removed — exam selection is now based purely
+        // on operation_time, not on which row was most recently created.
         const { data: exams, error } = await examSupabase
           .from('exam_info')
-          .select('exam_id')
-          .eq('branch', branch)
-          .order('created_at', { ascending: false })
-          .limit(1);
+          .select('exam_id, operation_time')
+          .eq('branch', branch);
 
         if (error) throw error;
 
         if (exams && exams.length > 0) {
-          examInput.value = exams[0].exam_id;
+          const now = new Date();
+
+          // Exams that are already open (operation_time <= now)
+          const opened = exams
+            .filter(ex => ex.operation_time && new Date(ex.operation_time).getTime() <= now.getTime())
+            .sort((a, b) => new Date(b.operation_time) - new Date(a.operation_time)); // most recently opened first
+
+          // Exams not yet open (operation_time > now)
+          const upcoming = exams
+            .filter(ex => ex.operation_time && new Date(ex.operation_time).getTime() > now.getTime())
+            .sort((a, b) => new Date(a.operation_time) - new Date(b.operation_time)); // soonest first
+
+          let chosen;
+          if (opened.length > 0) {
+            chosen = opened[0]; // the currently active exam
+          } else if (upcoming.length > 0) {
+            chosen = upcoming[0]; // next exam to open
+          } else {
+            chosen = exams[0]; // no operation_time set anywhere, fallback
+          }
+
+          examInput.value = chosen.exam_id;
           examInput.placeholder = "Exam ID";
         } else {
           examInput.placeholder = "No exam found for this branch";
