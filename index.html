@@ -688,7 +688,7 @@
         // on operation_time, not on which row was most recently created.
         const { data: exams, error } = await examSupabase
           .from('exam_info')
-          .select('exam_id, operation_time')
+          .select('exam_id, operational_time')
           .eq('branch', branch);
 
         if (error) throw error;
