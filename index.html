@@ -685,7 +685,7 @@
 
       try {
         // NOTE: created_at ordering removed — exam selection is now based purely
-        // on operation_time, not on which row was most recently created.
+        // on operational_time, not on which row was most recently created.
         const { data: exams, error } = await examSupabase
           .from('exam_info')
           .select('exam_id, operational_time')
@@ -696,15 +696,15 @@
         if (exams && exams.length > 0) {
           const now = new Date();
 
-          // Exams that are already open (operation_time <= now)
+          // Exams that are already open (operational_time <= now)
           const opened = exams
-            .filter(ex => ex.operation_time && new Date(ex.operation_time).getTime() <= now.getTime())
-            .sort((a, b) => new Date(b.operation_time) - new Date(a.operation_time)); // most recently opened first
+            .filter(ex => ex.operational_time && new Date(ex.operational_time).getTime() <= now.getTime())
+            .sort((a, b) => new Date(b.operational_time) - new Date(a.operational_time)); // most recently opened first
 
-          // Exams not yet open (operation_time > now)
+          // Exams not yet open (operational_time > now)
           const upcoming = exams
-            .filter(ex => ex.operation_time && new Date(ex.operation_time).getTime() > now.getTime())
-            .sort((a, b) => new Date(a.operation_time) - new Date(b.operation_time)); // soonest first
+            .filter(ex => ex.operational_time && new Date(ex.operational_time).getTime() > now.getTime())
+            .sort((a, b) => new Date(a.operational_time) - new Date(b.operational_time)); // soonest first
 
           let chosen;
           if (opened.length > 0) {
@@ -712,7 +712,7 @@
           } else if (upcoming.length > 0) {
             chosen = upcoming[0]; // next exam to open
           } else {
-            chosen = exams[0]; // no operation_time set anywhere, fallback
+            chosen = exams[0]; // no operational_time set anywhere, fallback
           }
 
           examInput.value = chosen.exam_id;
@@ -749,10 +749,10 @@
       startBtn.style.background = "grey";
 
       try {
-        // Step 1: Check if Exam is Restricted AND whether it is open yet (operation_time)
+        // Step 1: Check if Exam is Restricted AND whether it is open yet (operational_time)
         const { data: examData, error: examErr } = await examSupabase
           .from('exam_info')
-          .select('restricted, operation_time')
+          .select('restricted, operational_time')
           .eq('exam_id', examId)
           .single();
 
@@ -760,10 +760,10 @@
           console.error("Error fetching exam restriction:", examErr);
         }
 
-        // Step 1a: Block immediately if operation_time is set and is in the future.
+        // Step 1a: Block immediately if operational_time is set and is in the future.
         // No fee check, no profile check, no exception — exam simply cannot start yet.
-        if (examData && examData.operation_time) {
-          const opTime = new Date(examData.operation_time);
+        if (examData && examData.operational_time) {
+          const opTime = new Date(examData.operational_time);
           const now = new Date();
 
           if (!isNaN(opTime.getTime()) && opTime.getTime() > now.getTime()) {
