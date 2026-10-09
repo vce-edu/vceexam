@@ -167,6 +167,16 @@
     border-color: #007bff;
   }
 
+  /* Code-style text (tags like <a href='#'>) */
+  .option code,
+  .question-card code,
+  .review-card code {
+    font-family: Consolas, "Courier New", monospace;
+    background: #f1f5f9;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+
   .rightpanel {
     background: #fff;
     border-left: 1px solid #ddd;
@@ -650,9 +660,22 @@
     let confirmCallback = null;
     let resultsShown = false;
 
+    // ---------- Text helpers ----------
+
+    // Escape HTML so tags like <a href='#'> are shown as plain text
+    function escapeHTML(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    // Escape first, then turn "/n" markers into line breaks
     function formatText(text) {
       if (!text) return "";
-      return text.split("/n").join("<br>");
+      return escapeHTML(text).split("/n").join("<br>");
     }
 
     function toTitleCase(str) {
@@ -660,6 +683,11 @@
       return str.replace(/\w\S*/g, function (txt) {
         return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
       });
+    }
+
+    // True if the text contains something that looks like an HTML tag
+    function looksLikeCode(text) {
+      return /<[^>]+>/.test(text || "");
     }
 
     async function translateText(text, targetLang = 'hi') {
@@ -674,6 +702,22 @@
         return text;
       }
     }
+
+    // Don't translate text that contains code/tags (Google would translate tag names)
+    async function smartTranslate(text, targetLang = 'hi') {
+      if (looksLikeCode(text)) return text;
+      return translateText(text, targetLang);
+    }
+
+    // Show Hindi + English together only when they actually differ
+    function bilingual(hi, en) {
+      if (!hi || hi === en) {
+        return `<code>${formatText(en)}</code>`;
+      }
+      return `${formatText(hi)} (${formatText(en)})`;
+    }
+
+    // ---------- Modals ----------
 
     function showFeeStatusModal(en, hi) {
       document.getElementById("modal-msg-en").textContent = en;
@@ -703,6 +747,8 @@
       hideConfirmModal();
       if (cb) cb();
     });
+
+    // ---------- Submit lock ----------
 
     function isSubmitUnlocked() {
       return examTotalSecs > 0 && (examTotalSecs - remainingSecs) >= examTotalSecs / 4;
@@ -795,6 +841,8 @@
       btn.style.background = "#007bff";
     }
 
+    // ---------- Fee verification ----------
+
     async function verifyStudentFeeStatus(rollNumber, branch = "all") {
       try {
         const { data, error } = await supabaseClient.rpc("get_student_fee_status", {
@@ -833,6 +881,8 @@
         throw err;
       }
     }
+
+    // ---------- Start screen ----------
 
     document.getElementById("branch-select").addEventListener("change", async (e) => {
       const branch = e.target.value;
@@ -965,12 +1015,12 @@
 
         document.getElementById("candidate-info").innerHTML = `
       <h3>Candidate Info</h3>
-      <p><b>Roll Number:</b> ${student.roll_number}</p>
-      <p><b>Student Name:</b> ${toTitleCase(student.student_name)}</p>
-      <p><b>Father Name:</b> ${toTitleCase(student.father_name)}</p>
-      <p><b>Course:</b> ${toTitleCase(student.course)}</p>
-      <p><b>Batch Time:</b> ${toTitleCase(student.batch_time)}</p>
-      <p><b>Exam ID:</b> ${currentExamId || 'N/A'}</p>
+      <p><b>Roll Number:</b> ${escapeHTML(student.roll_number)}</p>
+      <p><b>Student Name:</b> ${escapeHTML(toTitleCase(student.student_name))}</p>
+      <p><b>Father Name:</b> ${escapeHTML(toTitleCase(student.father_name))}</p>
+      <p><b>Course:</b> ${escapeHTML(toTitleCase(student.course))}</p>
+      <p><b>Batch Time:</b> ${escapeHTML(toTitleCase(student.batch_time))}</p>
+      <p><b>Exam ID:</b> ${escapeHTML(currentExamId || 'N/A')}</p>
       <p><b>Status:</b> Active</p>
     `;
 
@@ -996,14 +1046,16 @@
       }
     });
 
+    // ---------- Questions ----------
+
     async function prepareQuestions(rawQuestions) {
       allQuestions = await Promise.all(rawQuestions.map(async (q) => {
-        const questionHi = await translateText(q.question_text.split("/n").join(" "));
+        const questionHi = await smartTranslate(q.question_text.split("/n").join(" "));
 
         const options = await Promise.all(q.options.map(async (opt) => ({
           id: opt.option_id,
           text_en: opt.option_text,
-          text_hi: await translateText(opt.option_text.split("/n").join(" "))
+          text_hi: await smartTranslate(opt.option_text.split("/n").join(" "))
         })));
 
         return {
@@ -1036,14 +1088,19 @@
       const q = allQuestions[index];
       const isLast = index === allQuestions.length - 1;
 
+      // Show the Hindi line only if it is different from the English one
+      const showHiQuestion = q.question_hi && q.question_hi !== q.question_en;
+
       qDiv.innerHTML = `
     <div class="question-card">
       <h2>Q${index + 1}. ${formatText(q.question_en)}</h2>
-      <h3 style="color:#555; font-weight:normal; margin-top:10px;">${formatText(q.question_hi) || ""}</h3>
+      ${showHiQuestion
+          ? `<h3 style="color:#555; font-weight:normal; margin-top:10px;">${formatText(q.question_hi)}</h3>`
+          : ""}
       ${q.options.map(opt => `
         <label class="option">
-          <input type="radio" name="q${index}" value="${opt.id}">
-          ${formatText(opt.text_hi || opt.text_en)} (${formatText(opt.text_en)})
+          <input type="radio" name="q${index}" value="${escapeHTML(opt.id)}">
+          ${bilingual(opt.text_hi, opt.text_en)}
         </label>`).join('')}
     </div>
     <div class="nav-buttons">
@@ -1055,8 +1112,9 @@
   `;
 
       if (userAnswers[index]) {
-        const radio = qDiv.querySelector(`input[value="${userAnswers[index]}"]`);
-        if (radio) radio.checked = true;
+        qDiv.querySelectorAll('input[type="radio"]').forEach(radio => {
+          if (radio.value === String(userAnswers[index])) radio.checked = true;
+        });
       }
 
       qDiv.querySelectorAll('input[type="radio"]').forEach(input => {
@@ -1084,6 +1142,8 @@
       });
     }
 
+    // ---------- Timer ----------
+
     function startTimer(durationInMinutes) {
       examTotalSecs = durationInMinutes * 60;
       remainingSecs = examTotalSecs;
@@ -1107,6 +1167,8 @@
         updateSubmitButtons();
       }, 1000);
     }
+
+    // ---------- Submit ----------
 
     async function submitExam() {
       if (examSubmitted) return;
@@ -1160,6 +1222,8 @@
       }
     }
 
+    // ---------- Results ----------
+
     function renderResultsDashboard(result) {
       const container = document.getElementById("success");
       const score = result.score;
@@ -1183,14 +1247,19 @@
         const isCorrect = !!userOpt && userOpt.id === correctId;
 
         const userAns = userOpt ? userOpt.text_en : "Not Answered";
-        const userAnsHi = userOpt ? userOpt.text_hi : "";
         const correctAns = correctOpt ? correctOpt.text_en : "";
-        const correctAnsHi = correctOpt ? correctOpt.text_hi : "";
+
+        // Hindi line only when it differs from English (i.e. not code)
+        const userAnsHi = userOpt && userOpt.text_hi !== userOpt.text_en ? userOpt.text_hi : "";
+        const correctAnsHi = correctOpt && correctOpt.text_hi !== correctOpt.text_en ? correctOpt.text_hi : "";
+        const questionHi = q.question_hi && q.question_hi !== q.question_en ? q.question_hi : "";
 
         return `
       <div class="review-card ${isCorrect ? 'correct' : 'incorrect'}">
         <div class="question-text">${i + 1}. ${formatText(q.question_en)}</div>
-        <div class="question-text-hi" style="color: #64748b; font-size: 16px; margin-top: -12px; margin-bottom: 20px; font-weight: 500; font-family: Arial, sans-serif;">${formatText(q.question_hi) || ""}</div>
+        ${questionHi
+            ? `<div class="question-text-hi" style="color: #64748b; font-size: 16px; margin-top: -12px; margin-bottom: 20px; font-weight: 500; font-family: Arial, sans-serif;">${formatText(questionHi)}</div>`
+            : ""}
         <div class="answer-comparison">
           <div class="ans-box user ${isCorrect ? 'correct' : 'wrong'}">
             <label>Your Answer</label>
